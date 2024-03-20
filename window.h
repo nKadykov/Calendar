@@ -18,44 +18,8 @@ QT_END_NAMESPACE
 class Window : public QWidget
 {
     Q_OBJECT
-private:
-    void createPreviewGroupBox();
-    void createGeneralOptionsGroupBox();
-    void createDatesGroupBox();
-    void createTextFormatsGroupBox();
-    QComboBox *createColorComboBox();
-    QGroupBox *previewGroupBox;
-    QGridLayout *previewLayout;
-    QCalendarWidget *calendar;
-    QGroupBox *generalOptionsGroupBox;
-    QLabel *localeLabel;
-    QLabel *firstDayLabel;
-    QLabel *selectionModelLabel;
-    QLabel *horizontalHeaderLabel;
-    QLabel *verticalHeaderLabel;
-    QComboBox *localeCombo;
-    QComboBox *firstDayCombo;
-    QComboBox *selectionModeCombo;
-    QComboBox *gridCheckBox;
-    QComboBox *navigationCheckBox;
-    QComboBox *horizontalCheckBox;
-    QComboBox *verticalHeaderCombo;
-    QGroupBox *datesGroupBox;
-    QLabel *currentDateLabel;
-    QLabel *minimumDateLabel;
-    QLabel *maximumDateLabel;
-    QDateEdit *currentDateEdit;
-    QDateEdit *minimumDateEdit;
-    QDateEdit *maximumDateEdit;
-    QGroupBox *textFormatsGroupBox;
-    QLabel *weekdayColorLabel;
-    QLabel *weekendColorLabel;
-    QLabel *headerTextFormatCombo;
-    QComboBox *weekdayColorCombo;
-    QComboBox *weekendColorCombo;
-    QComboBox *headerTextformatCombo;
-    QCheckBox *firstFridayCheckBox;
-    QCheckBox *mayFirstCheckBox;
+public:
+    Window(QWidget *parent = nullptr);
 private slots:
     void localeChanged(int index);
     void firstDayChanged(int index);
@@ -69,8 +33,44 @@ private slots:
     void weekendFormatChanged();
     void reformatHeaders();
     void reformatCalendarPage();
-public:
-    Window(QWidget *parent = nullptr);
+private:
+    void createPreviewGroupBox();
+    void createGeneralOptionsGroupBox();
+    void createDatesGroupBox();
+    void createTextFormatsGroupBox();
+    QComboBox *createColorComboBox();
+    QGroupBox *previewGroupBox;
+    QGridLayout *previewLayout;
+    QCalendarWidget *calendar;
+    QGroupBox *generalOptionsGroupBox;
+    QLabel *localeLabel;
+    QLabel *firstDayLabel;
+    QLabel *selectionModeLabel;
+    QLabel *horizontalHeaderLabel;
+    QLabel *verticalHeaderLabel;
+    QComboBox *localeCombo;
+    QComboBox *firstDayCombo;
+    QComboBox *selectionModeCombo;
+    QCheckBox *gridCheckBox;
+    QCheckBox *navigationCheckBox;
+    QComboBox *horizontalHeaderCombo;
+    QComboBox *verticalHeaderCombo;
+    QGroupBox *datesGroupBox;
+    QLabel *currentDateLabel;
+    QLabel *minimumDateLabel;
+    QLabel *maximumDateLabel;
+    QDateEdit *currentDateEdit;
+    QDateEdit *minimumDateEdit;
+    QDateEdit *maximumDateEdit;
+    QGroupBox *textFormatsGroupBox;
+    QLabel *weekdayColorLabel;
+    QLabel *weekendColorLabel;
+    QLabel *headerTextFormatLabel;
+    QComboBox *weekdayColorCombo;
+    QComboBox *weekendColorCombo;
+    QComboBox *headerTextFormatCombo;
+    QCheckBox *firstFridayCheckBox;
+    QCheckBox *mayFirstCheckBox;
 };
 
 #endif // WINDOW_H
