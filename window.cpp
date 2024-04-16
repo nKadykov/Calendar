@@ -23,7 +23,7 @@ Window::Window(QWidget *parent) : QWidget(parent) {
     setLayout(layout);
     previewLayout->setRowMinimumHeight(0, calendar->sizeHint().height());
     previewLayout->setColumnMinimumWidth(0, calendar->sizeHint().width());
-    setWindowTitle(tr("Calendar Widget"));
+    setWindowTitle(tr("Календарь"));
 }
 
 void Window::localeChanged(int index) {
