@@ -83,13 +83,13 @@ void Window::weekendFormatChanged() {
 void Window::reformatHeaders() {
     QString text = headerTextFormatCombo->currentText();
     QTextCharFormat format;
-    if(text == tr("Bold")) {
+    if(text == tr("Жирный")) {
         format.setFontWeight(QFont::Bold);
     }
-    else if(text == tr("Italic")) {
+    else if(text == tr("Курсив")) {
         format.setFontItalic(true);
     }
-    else if(text == tr("Green")) {
+    else if(text == tr("Зелёный")) {
         format.setForeground(Qt::green);
     }
     calendar->setHeaderTextFormat(format);
@@ -98,31 +98,14 @@ void Window::reformatHeaders() {
 void Window::reformatCalendarPage() {
     QTextCharFormat mayFirstFormat;
     const QDate mayFirst(calendar->yearShown(), 5, 1);
-    QTextCharFormat firstFridayFormat;
-    QDate firstFriday(calendar->yearShown(), calendar->monthShown(), 1);
-    while(firstFriday.dayOfWeek() != Qt::Friday) {
-        firstFriday = firstFriday.addDays(1);
-    }
-    if(firstFridayCheckBox->isChecked()) {
-        firstFridayFormat.setForeground(Qt::blue);
-    }
-    else {
-        Qt::DayOfWeek dayOfWeek(static_cast<Qt::DayOfWeek>(firstFriday.dayOfWeek()));
-        firstFridayFormat.setForeground(calendar->weekdayTextFormat(dayOfWeek).foreground());
-    }
-    calendar->setDateTextFormat(firstFriday, firstFridayFormat);
     if(mayFirstCheckBox->isChecked()) {
         mayFirstFormat.setForeground(Qt::red);
-    }
-    else if(!firstFridayCheckBox->isChecked() || firstFriday != mayFirst) {
-        Qt::DayOfWeek dayOfWeek(static_cast<Qt::DayOfWeek>(mayFirst.dayOfWeek()));
-        calendar->setDateTextFormat(mayFirst, calendar->weekdayTextFormat(dayOfWeek));
     }
     calendar->setDateTextFormat(mayFirst, mayFirstFormat);
 }
 
 void Window::createPreviewGroupBox() {
-    previewGroupBox = new QGroupBox(tr("Preview"));
+    previewGroupBox = new QGroupBox(tr("Превью"));
     calendar = new QCalendarWidget;
     calendar->setMinimumDate(QDate(1900, 1, 1));
     calendar->setMaximumDate(QDate(3000, 1, 1));
@@ -134,7 +117,7 @@ void Window::createPreviewGroupBox() {
 }
 
 void Window::createGeneralOptionsGroupBox() {
-    generalOptionsGroupBox = new QGroupBox(tr("General Options"));
+    generalOptionsGroupBox = new QGroupBox(tr("Основные опции"));
 
     localeCombo = new QComboBox;
     int curLocaleIndex = -1;
@@ -156,53 +139,53 @@ void Window::createGeneralOptionsGroupBox() {
     }
     if (curLocaleIndex != -1)
         localeCombo->setCurrentIndex(curLocaleIndex);
-    localeLabel = new QLabel(tr("&Locale"));
+    localeLabel = new QLabel(tr("&Местоположение"));
     localeLabel->setBuddy(localeCombo);
 
     firstDayCombo = new QComboBox;
-    firstDayCombo->addItem(tr("Sunday"), Qt::Sunday);
-    firstDayCombo->addItem(tr("Monday"), Qt::Monday);
-    firstDayCombo->addItem(tr("Tuesday"), Qt::Tuesday);
-    firstDayCombo->addItem(tr("Wednesday"), Qt::Wednesday);
-    firstDayCombo->addItem(tr("Thursday"), Qt::Thursday);
-    firstDayCombo->addItem(tr("Friday"), Qt::Friday);
-    firstDayCombo->addItem(tr("Saturday"), Qt::Saturday);
+    firstDayCombo->addItem(tr("Понедельник"), Qt::Monday);
+    firstDayCombo->addItem(tr("Вторник"), Qt::Tuesday);
+    firstDayCombo->addItem(tr("Среда"), Qt::Wednesday);
+    firstDayCombo->addItem(tr("Четверг"), Qt::Thursday);
+    firstDayCombo->addItem(tr("Пятница"), Qt::Friday);
+    firstDayCombo->addItem(tr("Суббота"), Qt::Saturday);
+    firstDayCombo->addItem(tr("Воскресенье"), Qt::Sunday);
 
-    firstDayLabel = new QLabel(tr("Wee&k starts on:"));
+    firstDayLabel = new QLabel(tr("Неделя начинается:"));
     firstDayLabel->setBuddy(firstDayCombo);
 
     selectionModeCombo = new QComboBox;
-    selectionModeCombo->addItem(tr("Single selection"),
+    selectionModeCombo->addItem(tr("Одиночный выбор"),
                                 QCalendarWidget::SingleSelection);
     selectionModeCombo->addItem(tr("None"), QCalendarWidget::NoSelection);
 
-    selectionModeLabel = new QLabel(tr("&Selection mode:"));
+    selectionModeLabel = new QLabel(tr("&Режим выбора:"));
     selectionModeLabel->setBuddy(selectionModeCombo);
 
-    gridCheckBox = new QCheckBox(tr("&Grid"));
+    gridCheckBox = new QCheckBox(tr("&Сетка"));
     gridCheckBox->setChecked(calendar->isGridVisible());
 
-    navigationCheckBox = new QCheckBox(tr("&Navigation bar"));
+    navigationCheckBox = new QCheckBox(tr("&Панель навигации"));
     navigationCheckBox->setChecked(true);
 
     horizontalHeaderCombo = new QComboBox;
-    horizontalHeaderCombo->addItem(tr("Single letter day names"),
+    horizontalHeaderCombo->addItem(tr("Одна буква"),
                                    QCalendarWidget::SingleLetterDayNames);
-    horizontalHeaderCombo->addItem(tr("Short day names"),
+    horizontalHeaderCombo->addItem(tr("Короткие имена"),
                                    QCalendarWidget::ShortDayNames);
-    horizontalHeaderCombo->addItem(tr("None"),
+    horizontalHeaderCombo->addItem(tr("Нет"),
                                    QCalendarWidget::NoHorizontalHeader);
     horizontalHeaderCombo->setCurrentIndex(1);
 
-    horizontalHeaderLabel = new QLabel(tr("&Horizontal header:"));
+    horizontalHeaderLabel = new QLabel(tr("&Горизонтальный заголовок:"));
     horizontalHeaderLabel->setBuddy(horizontalHeaderCombo);
 
     verticalHeaderCombo = new QComboBox;
-    verticalHeaderCombo->addItem(tr("ISO week numbers"),
+    verticalHeaderCombo->addItem(tr("Номера недель ИСО"),
                                  QCalendarWidget::ISOWeekNumbers);
-    verticalHeaderCombo->addItem(tr("None"), QCalendarWidget::NoVerticalHeader);
+    verticalHeaderCombo->addItem(tr("Нет"), QCalendarWidget::NoVerticalHeader);
 
-    verticalHeaderLabel = new QLabel(tr("&Vertical header:"));
+    verticalHeaderLabel = new QLabel(tr("&Вертикальный заголовок:"));
     verticalHeaderLabel->setBuddy(verticalHeaderCombo);
 
     connect(localeCombo, &QComboBox::currentIndexChanged,
@@ -247,33 +230,33 @@ void Window::createGeneralOptionsGroupBox() {
 
 void Window::createDatesGroupBox()
 {
-    datesGroupBox = new QGroupBox(tr("Dates"));
+    datesGroupBox = new QGroupBox(tr("Даты"));
 
     minimumDateEdit = new QDateEdit;
-    minimumDateEdit->setDisplayFormat("MMM d yyyy");
+    minimumDateEdit->setDisplayFormat("d MMM yyyy");
     minimumDateEdit->setDateRange(calendar->minimumDate(),
                                   calendar->maximumDate());
     minimumDateEdit->setDate(calendar->minimumDate());
 
-    minimumDateLabel = new QLabel(tr("&Minimum Date:"));
+    minimumDateLabel = new QLabel(tr("&Минимальная дата:"));
     minimumDateLabel->setBuddy(minimumDateEdit);
 
     currentDateEdit = new QDateEdit;
-    currentDateEdit->setDisplayFormat("MMM d yyyy");
+    currentDateEdit->setDisplayFormat("d MMM yyyy");
     currentDateEdit->setDate(calendar->selectedDate());
     currentDateEdit->setDateRange(calendar->minimumDate(),
                                   calendar->maximumDate());
 
-    currentDateLabel = new QLabel(tr("&Current Date:"));
+    currentDateLabel = new QLabel(tr("&Настоящая дата:"));
     currentDateLabel->setBuddy(currentDateEdit);
 
     maximumDateEdit = new QDateEdit;
-    maximumDateEdit->setDisplayFormat("MMM d yyyy");
+    maximumDateEdit->setDisplayFormat("d MMM yyyy");
     maximumDateEdit->setDateRange(calendar->minimumDate(),
                                   calendar->maximumDate());
     maximumDateEdit->setDate(calendar->maximumDate());
 
-    maximumDateLabel = new QLabel(tr("Ma&ximum Date:"));
+    maximumDateLabel = new QLabel(tr("Максимальная дата:"));
     maximumDateLabel->setBuddy(maximumDateEdit);
 
     connect(currentDateEdit, &QDateEdit::dateChanged,
@@ -299,33 +282,33 @@ void Window::createDatesGroupBox()
 
 void Window::createTextFormatsGroupBox()
 {
-    textFormatsGroupBox = new QGroupBox(tr("Text Formats"));
+    textFormatsGroupBox = new QGroupBox(tr("Формат текста"));
 
     weekdayColorCombo = createColorComboBox();
     weekdayColorCombo->setCurrentIndex(
-        weekdayColorCombo->findText(tr("Black")));
+        weekdayColorCombo->findText(tr("Чёрный")));
 
-    weekdayColorLabel = new QLabel(tr("&Weekday color:"));
+    weekdayColorLabel = new QLabel(tr("&Цвет дней недели:"));
     weekdayColorLabel->setBuddy(weekdayColorCombo);
 
     weekendColorCombo = createColorComboBox();
     weekendColorCombo->setCurrentIndex(
-        weekendColorCombo->findText(tr("Red")));
+        weekendColorCombo->findText(tr("Красный")));
 
-    weekendColorLabel = new QLabel(tr("Week&end color:"));
+    weekendColorLabel = new QLabel(tr("Цвет выходных:"));
     weekendColorLabel->setBuddy(weekendColorCombo);
 
     headerTextFormatCombo = new QComboBox;
-    headerTextFormatCombo->addItem(tr("Bold"));
-    headerTextFormatCombo->addItem(tr("Italic"));
-    headerTextFormatCombo->addItem(tr("Plain"));
+    headerTextFormatCombo->addItem(tr("Жирный"));
+    headerTextFormatCombo->addItem(tr("Курсив"));
+    headerTextFormatCombo->addItem(tr("Обычный"));
 
-    headerTextFormatLabel = new QLabel(tr("&Header text:"));
+    headerTextFormatLabel = new QLabel(tr("&Заголовочный текст:"));
     headerTextFormatLabel->setBuddy(headerTextFormatCombo);
 
-    firstFridayCheckBox = new QCheckBox(tr("&First Friday in blue"));
+    firstFridayCheckBox = new QCheckBox(tr("&Первая пятница в синем"));
 
-    mayFirstCheckBox = new QCheckBox(tr("May &1 in red"));
+    mayFirstCheckBox = new QCheckBox(tr("Первое мая в красном"));
 
     connect(weekdayColorCombo, &QComboBox::currentIndexChanged,
             this, &Window::weekdayFormatChanged);
@@ -337,13 +320,10 @@ void Window::createTextFormatsGroupBox()
             this, &Window::reformatCalendarPage);
     connect(headerTextFormatCombo, &QComboBox::currentIndexChanged,
             this, &Window::reformatHeaders);
-    connect(firstFridayCheckBox, &QCheckBox::toggled,
-            this, &Window::reformatCalendarPage);
     connect(mayFirstCheckBox, &QCheckBox::toggled,
             this, &Window::reformatCalendarPage);
 
     QHBoxLayout *checkBoxLayout = new QHBoxLayout;
-    checkBoxLayout->addWidget(firstFridayCheckBox);
     checkBoxLayout->addStretch();
     checkBoxLayout->addWidget(mayFirstCheckBox);
 
@@ -365,9 +345,9 @@ void Window::createTextFormatsGroupBox()
 
 QComboBox *Window::createColorComboBox() {
     QComboBox *comboBox = new QComboBox;
-    comboBox->addItem(tr("Red"), QColor(Qt::red));
-    comboBox->addItem(tr("Blue"), QColor(Qt::blue));
-    comboBox->addItem(tr("Black"), QColor(Qt::black));
-    comboBox->addItem(tr("Magenta"), QColor(Qt::magenta));
+    comboBox->addItem(tr("Красный"), QColor(Qt::red));
+    comboBox->addItem(tr("Синий"), QColor(Qt::blue));
+    comboBox->addItem(tr("Чёрный"), QColor(Qt::black));
+    comboBox->addItem(tr("Пурпурный"), QColor(Qt::magenta));
     return comboBox;
 }
